@@ -2982,11 +2982,11 @@ namespace libEDSsharp
         public bool CreatePDO(bool rx,UInt16 index)
         {
             //check if we are creating an RX PDO it is a valid index
-            if (rx && (index < 0x1400 || index > 0x15ff))
+            if (rx && (index < 0x1400 || index >= 0x1600))
                 return false;
 
             //check if we are creating an PDO TX it is a valid index
-            if (!rx & (index < 0x1800 || index > 0x19ff))
+            if (!rx & (index < 0x1800 || index >= 0x1A00))
                 return false;
 
             //Check it does not already exist
