@@ -556,13 +556,13 @@ namespace libEDSsharp
                 // we need to search the mappings to find the largest or this will not generate correctly
                 // as can opennode only has 1 structure defined for all mappings see #220
 
-                if (kvp.Key>0x1600 || kvp.Key<0x1800)
+                if (kvp.Key>=0x1600 && kvp.Key<0x1800)
                 {
                     //switch the OD entry to the largest
                     od = maxRXmappingsOD;
                 }
 
-                if (kvp.Key > 0x1A00 || kvp.Key < 0x1C00)
+                if (kvp.Key >= 0x1A00 && kvp.Key < 0x1C00)
                 {
                     //switch the OD entry to the largest
                     od = maxTXmappingsOD;
@@ -571,7 +571,7 @@ namespace libEDSsharp
                 List<string> structmemberlist = new List<string>();
 
                 file.WriteLine(string.Format("/*{0:X4}      */ typedef struct {{", kvp.Key));
-                foreach (KeyValuePair<UInt16, ODentry> kvp2 in kvp.Value.subobjects)
+                foreach (KeyValuePair<UInt16, ODentry> kvp2 in od.subobjects) // kvp.Value.subobjects)
                 {
                     string paramaterarrlen = "";
                     ODentry subod = kvp2.Value;
