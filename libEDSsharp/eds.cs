@@ -2870,7 +2870,7 @@ namespace libEDSsharp
                 nobase = 16;
             }
 
-            pat = @"^0[0-9]+"; 
+            pat = @"^0[0-9]+";
             r = new Regex(pat, RegexOptions.IgnoreCase);
             m = r.Match(defaultvalue);
             if (m.Success)
