@@ -747,21 +747,21 @@ namespace libEDSsharp
         public UInt32 RevisionNumber;
 
         [EdsExport]
-        public bool BaudRate_10 = true;
+        public bool BaudRate_10 = false;
         [EdsExport]
-        public bool BaudRate_20 = true;
+        public bool BaudRate_20 = false;
         [EdsExport]
-        public bool BaudRate_50 = true;
+        public bool BaudRate_50 = false;
         [EdsExport]
-        public bool BaudRate_125 = true;
+        public bool BaudRate_125 = false;
         [EdsExport]
-        public bool BaudRate_250 = true;
+        public bool BaudRate_250 = false;
         [EdsExport]
-        public bool BaudRate_500 = true;
+        public bool BaudRate_500 = false;
         [EdsExport]
-        public bool BaudRate_800 = true;
+        public bool BaudRate_800 = false;
         [EdsExport]
-        public bool BaudRate_1000 = true;
+        public bool BaudRate_1000 = false;
 
         public bool BaudRate_auto = false;
 
@@ -2870,7 +2870,7 @@ namespace libEDSsharp
                 nobase = 16;
             }
 
-            pat = @"^0[0-9]+";
+            pat = @"^0[0-9]+"; 
             r = new Regex(pat, RegexOptions.IgnoreCase);
             m = r.Match(defaultvalue);
             if (m.Success)
