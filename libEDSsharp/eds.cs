@@ -1944,12 +1944,12 @@ namespace libEDSsharp
             fi.ModificationDateTime = DateTime.Now;
 
             du.Dummy0001 = false;
-            du.Dummy0002 = true;
-            du.Dummy0003 = true;
-            du.Dummy0004 = true;
-            du.Dummy0005 = true;
-            du.Dummy0006 = true;
-            du.Dummy0007 = true;
+            du.Dummy0002 = false;
+            du.Dummy0003 = false;
+            du.Dummy0004 = false;
+            du.Dummy0005 = false;
+            du.Dummy0006 = false;
+            du.Dummy0007 = false;
 
             ODentry od = new ODentry();
 
@@ -2870,7 +2870,7 @@ namespace libEDSsharp
                 nobase = 16;
             }
 
-            pat = @"^0[0-9]+";
+            pat = @"^0[0-7]+";
             r = new Regex(pat, RegexOptions.IgnoreCase);
             m = r.Match(defaultvalue);
             if (m.Success)

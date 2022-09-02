@@ -38,6 +38,7 @@ namespace ODEditor
             grid1.FixedRows = 2;
 
             grid1.SelectionMode = SourceGrid.GridSelectionMode.Row;
+            grid1.VScrollBar.LargeChange = 5;
 
             grid1.Click += Grid1_Click;
 
@@ -126,7 +127,7 @@ namespace ODEditor
             UInt16 newindex = EDSsharp.ConvertToUInt16(bits[0]);
             //warning if the subindex is still hex the converter will not know about it
             //we may need to append 0x to keep it correct
-            UInt16 newsubindex = EDSsharp.ConvertToUInt16(bits[1]);
+            UInt16 newsubindex = EDSsharp.ConvertToUInt16("0x" + bits[1]);
 
             //bits[2] is the description if we need it
 
@@ -218,7 +219,7 @@ namespace ODEditor
             else if (foundrow > 1) //don't select headers or bits
             {
                 var obj = grid1.Rows[foundrow];
-                if (obj.Tag != null)
+                if (obj!= null && obj.Tag != null)
                 {
 
                     PDOSlot slot = (PDOSlot)obj.Tag;
