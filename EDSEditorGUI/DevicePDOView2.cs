@@ -67,8 +67,7 @@ namespace ODEditor
             }
 
             grid1.Rows[0].Height = 30;
-
-
+            
             contextMenuStrip_removeitem.ItemClicked += ContextMenuStrip_removeitem_ItemClicked;
 
             Invalidated += DevicePDOView2_Invalidated;
@@ -346,8 +345,10 @@ namespace ODEditor
             int savVScrollValue = 0;
 
             if (!updatechoices)
-                savVScrollValue = grid1.VScrollBar.Value;                
-            
+                savVScrollValue = grid1.VScrollBar.Value;
+
+            button_savepdochanges.Enabled = (textBox_slot.Text != "");
+
             updateslotdisplay();
 
             if (eds == null)

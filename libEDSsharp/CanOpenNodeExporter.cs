@@ -839,11 +839,11 @@ file.WriteLine(@"/**************************************************************
             file.WriteLine(@"// For CANopenNode V2 users, C macro `CO_VERSION_MAJOR=2` has to be added to project options
 #ifndef CO_VERSION_MAJOR
  #include ""CO_driver.h""
- #include """ + filename + @".h""
+ #include """ + Path.GetFileNameWithoutExtension(filename) + @".h""
  #include ""CO_SDO.h""
 #elif CO_VERSION_MAJOR < 4
  #include ""301/CO_driver.h""
- #include """ + filename + @".h""
+ #include """ + Path.GetFileNameWithoutExtension(filename) + @".h""
  #include ""301/CO_SDOserver.h""
 #else
  #error This Object dictionary is not compatible with CANopenNode v4.0 and up!
