@@ -1365,10 +1365,23 @@ namespace libEDSsharp
 
             if (baseObject.objecttype == ObjectType.VAR)
                 return null;
+            
+            ODentry newOd;
+
+            if ((baseObject.Nosubindexes == 0) && ((baseObject.objecttype == ObjectType.ARRAY) || (baseObject.objecttype == ObjectType.REC))) {
+                baseObject.subobjects.Add(0, new ODentry
+                {
+                    parent = baseObject,
+                    parameter_name = "Highest sub-index supported",
+                    accesstype = EDSsharp.AccessType.ro,
+                    objecttype = ObjectType.VAR,
+                    datatype = DataType.UNSIGNED8,
+                    defaultvalue = "0x01"
+                });
+            }
 
             ODentry lastSubOd = baseObject.subobjects.Values.Last();
             ODentry originalOd = null;
-            ODentry newOd;
             UInt16 maxSubIndex = 1;
             UInt16 lastSubIndex = 1;
 
