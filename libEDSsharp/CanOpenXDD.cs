@@ -1114,7 +1114,7 @@ namespace libEDSsharp
                                 subentry.actualvalue = subobj.actualValue;
 
                                 //FIXME WTF is going on here??
-                                entry.subobjects.Add(subobj.subIndex[1], subentry);
+                                entry.subobjects.Add(subobj.subIndex[0], subentry);
 
                             }
                         }
