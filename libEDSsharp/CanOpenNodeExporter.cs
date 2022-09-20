@@ -27,6 +27,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.IO;
 
+
+
 namespace libEDSsharp
 {
 
@@ -1349,10 +1351,10 @@ const CO_OD_entry_t CO_OD[CO_OD_NoOfElements] = {
             if (output.Length > 1)
             {
                 if (Char.IsLower(output[1]))
-                    output = Char.ToLower(output[0]) + output.Substring(1);
+                    output = Char.ToLowerInvariant(output[0]) + output.Substring(1);
             }
             else
-                output = output.ToLower(); //single character
+                output = output.ToLowerInvariant(); //single character
 
 
             UInt32 key = (UInt32)((entry.Index << 8) + entry.Subindex );

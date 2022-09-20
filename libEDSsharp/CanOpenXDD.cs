@@ -1109,11 +1109,6 @@ namespace libEDSsharp
 
                                 subentry.uniqueID = subobj.uniqueIDRef;
 
-                                subentry.HighLimit = subobj.highLimit;
-                                subentry.LowLimit = subobj.lowLimit;
-                                subentry.actualvalue = subobj.actualValue;
-
-                                //FIXME WTF is going on here??
                                 entry.subobjects.Add(subobj.subIndex[0], subentry);
 
                             }

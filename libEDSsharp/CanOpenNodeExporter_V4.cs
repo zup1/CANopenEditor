@@ -708,12 +708,12 @@ OD_t *{0} = &_{0};", odname, string.Join(",\n    ", ODList)));
             {
                 // output that doesnt start with all-cap-words should have word start with a lower case character
                 if (Char.IsLetter(output[0]) && Char.IsLower(output[1]))
-                    output = Char.ToLower(output[0]) + output.Substring(1);
+                    output = Char.ToLowerInvariant(output[0]) + output.Substring(1);
             }
             else
             {
                 // single character output
-                output = output.ToLower();
+                output = output.ToLowerInvariant();
             }
 
             return output;
