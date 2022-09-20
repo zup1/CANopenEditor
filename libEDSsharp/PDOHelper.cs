@@ -12,7 +12,7 @@ namespace libEDSsharp
 
         private UInt16 _MappingIndex;
         private UInt16 _ConfigurationIndex;
-
+        public bool nodeidpresent;
         public ushort ConfigurationIndex
         {
             get { return _ConfigurationIndex; }
@@ -71,7 +71,7 @@ namespace libEDSsharp
                 if (value == true)
                     COB = COB | 0x80000000;
                 else
-                    COB = COB & 0x0FFFFFFF;
+                    COB = COB & 0xEFFFFFFF;
             }
         }
  
@@ -81,6 +81,7 @@ namespace libEDSsharp
         public UInt16 eventtimer;
         public byte syncstart;
         public byte transmissiontype;
+        public string Description;
 
         public PDOSlot()
         {
@@ -88,6 +89,7 @@ namespace libEDSsharp
             mappingloc = "PERSIST_COMM";
             transmissiontype = 254;
             Mapping = new List<ODentry>();
+            Description = "";
         }
 
         public string getTargetName(ODentry od)
@@ -185,9 +187,7 @@ namespace libEDSsharp
 
                     PDOSlot slot = new PDOSlot();
 
-                    bool nodeidpresent;
-
-                    slot.COB = eds.GetNodeID(od.subobjects[1].defaultvalue, out nodeidpresent);
+                    slot.COB = eds.GetNodeID(od.subobjects[1].defaultvalue, out slot.nodeidpresent);
 
                     if (od.Containssubindex(2))
                         slot.transmissiontype = EDSsharp.ConvertToByte(od.Getsubobject(2).defaultvalue);
@@ -205,6 +205,7 @@ namespace libEDSsharp
 
                     slot.configAccessType = od.accesstype;
                     slot.configloc = od.prop.CO_storageGroup;
+                    slot.Description = od.Description;
 
 
                     Console.WriteLine(String.Format("Found PDO Entry {0:x4} {1:x3}", idx, slot.COB));
@@ -316,6 +317,7 @@ namespace libEDSsharp
 
                 config.accesstype = slot.configAccessType;
                 config.prop.CO_storageGroup = slot.configloc;
+                config.Description = slot.Description;
 
 
                 if (slot.isTXPDO())
@@ -327,6 +329,8 @@ namespace libEDSsharp
                     sub = new ODentry("COB-ID used by TPDO", (ushort)slot.ConfigurationIndex, 1);
                     sub.datatype = DataType.UNSIGNED32;
                     sub.defaultvalue = slot.COB.ToHexString();
+                    if (slot.nodeidpresent)
+                        sub.defaultvalue += " + $NODEID";
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x01, sub);
 
@@ -369,6 +373,8 @@ namespace libEDSsharp
                     sub = new ODentry("COB-ID used by RPDO", (ushort)slot.ConfigurationIndex, 1);
                     sub.datatype = DataType.UNSIGNED32;
                     sub.defaultvalue = slot.COB.ToHexString();
+                    if (slot.nodeidpresent)
+                        sub.defaultvalue += " + $NODEID";
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x01, sub);
 
@@ -423,10 +429,8 @@ namespace libEDSsharp
         /// <param name="configindex"></param>
         public void addPDOslot(UInt16 configindex)
         {
-
-            //quick range check, it must be a config index for an RXPDO or a TXPDO
-            if( (configindex<0x1400) || (configindex >= 0x1a00)  || ((configindex>=0x1600) && (configindex<0x1800)))
-
+            //quick range check, it must be a config index for an RXPDO or a TXPDO. True if not in range 0x1400...0x15FF OR  0x1800...0x19FF
+            if ((configindex < 0x1400) || (configindex >= 0x1a00) || ((configindex >= 0x1600) && (configindex < 0x1800)))   
                 return;
 
             foreach(PDOSlot slot in pdoslots)
@@ -439,7 +443,6 @@ namespace libEDSsharp
 
             PDOSlot newslot = new PDOSlot();
             newslot.ConfigurationIndex = configindex;
-
 
             newslot.COB = 0x180;        // Fixme need better defaults???
             newslot.configloc = "RAM";

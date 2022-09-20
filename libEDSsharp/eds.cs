@@ -1365,10 +1365,23 @@ namespace libEDSsharp
 
             if (baseObject.objecttype == ObjectType.VAR)
                 return null;
+            
+            ODentry newOd;
+
+            if ((baseObject.Nosubindexes == 0) && ((baseObject.objecttype == ObjectType.ARRAY) || (baseObject.objecttype == ObjectType.REC))) {
+                baseObject.subobjects.Add(0, new ODentry
+                {
+                    parent = baseObject,
+                    parameter_name = "Highest sub-index supported",
+                    accesstype = EDSsharp.AccessType.ro,
+                    objecttype = ObjectType.VAR,
+                    datatype = DataType.UNSIGNED8,
+                    defaultvalue = "0x01"
+                });
+            }
 
             ODentry lastSubOd = baseObject.subobjects.Values.Last();
             ODentry originalOd = null;
-            ODentry newOd;
             UInt16 maxSubIndex = 1;
             UInt16 lastSubIndex = 1;
 
@@ -1944,12 +1957,12 @@ namespace libEDSsharp
             fi.ModificationDateTime = DateTime.Now;
 
             du.Dummy0001 = false;
-            du.Dummy0002 = true;
-            du.Dummy0003 = true;
-            du.Dummy0004 = true;
-            du.Dummy0005 = true;
-            du.Dummy0006 = true;
-            du.Dummy0007 = true;
+            du.Dummy0002 = false;
+            du.Dummy0003 = false;
+            du.Dummy0004 = false;
+            du.Dummy0005 = false;
+            du.Dummy0006 = false;
+            du.Dummy0007 = false;
 
             ODentry od = new ODentry();
 
@@ -2014,7 +2027,7 @@ namespace libEDSsharp
                     }
                     if (missing)
                         mappingErrors.Add($"{PDO} 0x{indexPdo:X4},0x{subIdxPdo:X2}: missing OD entry 0x{mapIdx:X4},0x{mapSub:X2}");
-                    else if (accessPDO == AccessPDO.no || (PDO == "RPDO" && accessPDO == AccessPDO.t) || (PDO == "TPDO" && accessPDO == AccessPDO.r))
+                    else if (accessPDO == AccessPDO.no || (PDO == "RPDO" && accessPDO == AccessPDO.r) || (PDO == "TPDO" && accessPDO == AccessPDO.t))
                         mappingErrors.Add($"{PDO} 0x{indexPdo:X4},0x{subIdxPdo:X2}: not mappable OD entry 0x{mapIdx:X4},0x{mapSub:X2}");
                 }
             }
@@ -2870,7 +2883,7 @@ namespace libEDSsharp
                 nobase = 16;
             }
 
-            pat = @"^0[0-9]+";
+            pat = @"^0[0-7]+";
             r = new Regex(pat, RegexOptions.IgnoreCase);
             m = r.Match(defaultvalue);
             if (m.Success)
