@@ -1076,7 +1076,7 @@ namespace libEDSsharp
         public string actualvalue = "";
 
         [EdsExport]
-        public Byte ObjFlags = 0;
+        public UInt32 ObjFlags = 0;
 
         [EdsExport]
         public byte CompactSubObj = 0;
@@ -2192,7 +2192,7 @@ namespace libEDSsharp
 
                 if(kvp.Value.ContainsKey("ObjFlags"))
                 {
-                    od.ObjFlags = Convert.ToByte(kvp.Value["ObjFlags"], Getbase(kvp.Value["ObjFlags"]));
+                    od.ObjFlags = Convert.ToUInt32(kvp.Value["ObjFlags"], Getbase(kvp.Value["ObjFlags"]));
                 }
                 else
                 {
