@@ -179,15 +179,22 @@ namespace ODEditor
             int x = 0;
             int x2 = 0;
             foundcol = 0;
+            int outofview = 0;
+            for (int i = 0; i < grid1.HScrollBar.Value; i++)
+            {
+                outofview += grid1.Columns.GetWidth(i);
+            }
+
+            x2 = -outofview;
             foreach (GridColumn col in grid1.Columns)
             {
-                x2 = x + col.Width;
 
-                if (P.X > x && P.X < x2)
+
+                if (P.X > x2)
                 {
-                    foundcol = col.Index + grid1.HScrollBar.Value; 
+                    foundcol = col.Index;
                 }
-                x = x2;
+                x2 += col.Width;
             }
 
             Console.WriteLine(string.Format("Found grid at {0}x{1}", foundcol, foundrow));
@@ -511,6 +518,7 @@ namespace ODEditor
                 //1 Header Row
                 SourceGrid.Cells.Views.ColumnHeader view = new SourceGrid.Cells.Views.ColumnHeader();
                 view.Font = new Font(FontFamily.GenericSansSerif, 8, FontStyle.Bold);
+                view.WordWrap = true;
                 view.TextAlignment = DevAge.Drawing.ContentAlignment.MiddleCenter;
                 view.BackColor = Color.Red;
 
