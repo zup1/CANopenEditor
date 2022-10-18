@@ -125,8 +125,8 @@ namespace ODEditor
                 eds.di.LSS_Master = checkBox_lssMaster.Checked;
 
                 doUpdatePDOs();
-
-                //These are read only and auto calculated
+               
+                //These are read only and auto calculated 
                 //textBox_rxpdos.Text = eds.di.NrOfRXPDO.ToString();
                 //textBox_txpdos.Text = eds.di.NrOfTXPDO.ToString();
 
