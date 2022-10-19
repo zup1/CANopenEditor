@@ -143,7 +143,7 @@ namespace ODEditor
                 return;
 
             eds = eds_target;
-
+            eds.UpdatePDOcount();
             doUpdateDeviceInfo();
             doUpdatePDOs();
 

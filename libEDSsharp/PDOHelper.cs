@@ -48,6 +48,7 @@ namespace libEDSsharp
         public string mappingloc;
         public string configloc;
        
+
         public uint COB;
 
         public bool isTXPDO()
