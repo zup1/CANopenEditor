@@ -31,7 +31,7 @@ namespace libEDSsharp
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("Configuration Index", "Must be between 0x1400 and 0x17FF");
+                    throw new ArgumentOutOfRangeException("Configuration Index", "Must be between 0x1400 and 0x17FF ");
                 }
                    
                    
@@ -47,6 +47,7 @@ namespace libEDSsharp
         public EDSsharp.AccessType configAccessType;
         public string mappingloc;
         public string configloc;
+       
 
         public uint COB;
 
@@ -90,7 +91,7 @@ namespace libEDSsharp
             transmissiontype = 254;
             Mapping = new List<ODentry>();
             Description = "";
-        }
+    }
 
         public string getTargetName(ODentry od)
         {
@@ -328,9 +329,11 @@ namespace libEDSsharp
 
                     sub = new ODentry("COB-ID used by TPDO", (ushort)slot.ConfigurationIndex, 1);
                     sub.datatype = DataType.UNSIGNED32;
+
                     sub.defaultvalue = slot.COB.ToHexString();
                     if (slot.nodeidpresent)
                         sub.defaultvalue += " + $NODEID";
+
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x01, sub);
 
@@ -371,10 +374,12 @@ namespace libEDSsharp
                     config.prop.CO_countLabel = "RPDO";
 
                     sub = new ODentry("COB-ID used by RPDO", (ushort)slot.ConfigurationIndex, 1);
+
                     sub.datatype = DataType.UNSIGNED32;
                     sub.defaultvalue = slot.COB.ToHexString();
                     if (slot.nodeidpresent)
                         sub.defaultvalue += " + $NODEID";
+
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x01, sub);
 
@@ -429,8 +434,10 @@ namespace libEDSsharp
         /// <param name="configindex"></param>
         public void addPDOslot(UInt16 configindex)
         {
-            //quick range check, it must be a config index for an RXPDO or a TXPDO. True if not in range 0x1400...0x15FF OR  0x1800...0x19FF
-            if ((configindex < 0x1400) || (configindex >= 0x1a00) || ((configindex >= 0x1600) && (configindex < 0x1800)))   
+
+            //quick range check, it must be a config index for an RXPDO or a TXPDO
+            if( (configindex<0x1400) || (configindex >= 0x1a00)  || ((configindex>=0x1600) && (configindex<0x1800)))
+
                 return;
 
             foreach(PDOSlot slot in pdoslots)
