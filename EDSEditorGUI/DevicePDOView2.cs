@@ -223,7 +223,8 @@ namespace ODEditor
             //    // Force the ToolTip text to be displayed whether or not the form is active.
             //    toolTip1.ShowAlways = true;
             //    toolTip1.Show(loc.ToString() + ", " + grid1.HScrollBar.Value.ToString(), grid1, ma.Location);
-        }
+            //}
+
             grid1.Selection.ResetSelection(false);
             grid1.Selection.SelectRow(foundrow, true);
 
