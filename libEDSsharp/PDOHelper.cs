@@ -48,7 +48,6 @@ namespace libEDSsharp
         public string mappingloc;
         public string configloc;
        
-
         public uint COB;
 
         public bool isTXPDO()
@@ -329,11 +328,9 @@ namespace libEDSsharp
 
                     sub = new ODentry("COB-ID used by TPDO", (ushort)slot.ConfigurationIndex, 1);
                     sub.datatype = DataType.UNSIGNED32;
-
                     sub.defaultvalue = slot.COB.ToHexString();
                     if (slot.nodeidpresent)
                         sub.defaultvalue += " + $NODEID";
-
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x01, sub);
 
@@ -374,12 +371,10 @@ namespace libEDSsharp
                     config.prop.CO_countLabel = "RPDO";
 
                     sub = new ODentry("COB-ID used by RPDO", (ushort)slot.ConfigurationIndex, 1);
-
                     sub.datatype = DataType.UNSIGNED32;
                     sub.defaultvalue = slot.COB.ToHexString();
                     if (slot.nodeidpresent)
                         sub.defaultvalue += " + $NODEID";
-
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x01, sub);
 
