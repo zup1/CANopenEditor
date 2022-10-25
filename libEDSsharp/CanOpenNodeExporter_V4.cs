@@ -145,17 +145,17 @@ namespace libEDSsharp
                 switch (od.objecttype)
                 {
                     case ObjectType.VAR:
-                        odObjectType = "VAR";
+                        odObjectType = ObjectType.VAR.ToString();
                         subEntriesCount = Prepare_var(od, indexH, varName, od.prop.CO_storageGroup);
                         break;
 
                     case ObjectType.ARRAY:
-                        odObjectType = "ARR";
+                        odObjectType = ObjectType.ARRAY.ToString();
                         subEntriesCount = Prepare_arr(od, indexH, varName, od.prop.CO_storageGroup);
                         break;
 
-                    case ObjectType.REC:
-                        odObjectType = "REC";
+                    case ObjectType.RECORD:
+                        odObjectType = ObjectType.RECORD.ToString();
                         subEntriesCount = Prepare_rec(od, indexH, varName, od.prop.CO_storageGroup);
                         break;
                 }

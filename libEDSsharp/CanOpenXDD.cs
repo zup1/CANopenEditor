@@ -441,7 +441,7 @@ namespace libEDSsharp
                 }
 
 
-                if (od.objecttype != ObjectType.ARRAY && od.objecttype != ObjectType.REC)
+                if (od.objecttype != ObjectType.ARRAY && od.objecttype != ObjectType.RECORD)
                 {
                     //#209 don't set data type for array or rec objects, the subobjects hold 
                     //the data type

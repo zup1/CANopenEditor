@@ -48,25 +48,25 @@ namespace ODEditor
 
             if (CANopenNodeV4)
             {
-                comboBox_dataType.Items.Add("BOOLEAN");
-                comboBox_dataType.Items.Add("INTEGER8");
-                comboBox_dataType.Items.Add("INTEGER16");
-                comboBox_dataType.Items.Add("INTEGER32");
-                comboBox_dataType.Items.Add("INTEGER64");
-                comboBox_dataType.Items.Add("UNSIGNED8");
-                comboBox_dataType.Items.Add("UNSIGNED16");
-                comboBox_dataType.Items.Add("UNSIGNED32");
-                comboBox_dataType.Items.Add("UNSIGNED64");
-                comboBox_dataType.Items.Add("REAL32");
-                comboBox_dataType.Items.Add("REAL64");
-                comboBox_dataType.Items.Add("VISIBLE_STRING");
-                comboBox_dataType.Items.Add("OCTET_STRING");
-                comboBox_dataType.Items.Add("UNICODE_STRING");
-                comboBox_dataType.Items.Add("DOMAIN");
+                comboBox_dataType.Items.Add(DataType.BOOLEAN.ToString());
+                comboBox_dataType.Items.Add(DataType.INTEGER8.ToString());
+                comboBox_dataType.Items.Add(DataType.INTEGER16.ToString());
+                comboBox_dataType.Items.Add(DataType.INTEGER32.ToString());
+                comboBox_dataType.Items.Add(DataType.INTEGER64.ToString());
+                comboBox_dataType.Items.Add(DataType.UNSIGNED8.ToString());
+                comboBox_dataType.Items.Add(DataType.UNSIGNED16.ToString());
+                comboBox_dataType.Items.Add(DataType.UNSIGNED32.ToString());
+                comboBox_dataType.Items.Add(DataType.UNSIGNED64.ToString());
+                comboBox_dataType.Items.Add(DataType.REAL32.ToString());
+                comboBox_dataType.Items.Add(DataType.REAL64.ToString());
+                comboBox_dataType.Items.Add(DataType.VISIBLE_STRING.ToString());
+                comboBox_dataType.Items.Add(DataType.OCTET_STRING.ToString());
+                comboBox_dataType.Items.Add(DataType.UNICODE_STRING.ToString());
+                comboBox_dataType.Items.Add(DataType.DOMAIN.ToString());
 
-                comboBox_objectType.Items.Add("VAR");
-                comboBox_objectType.Items.Add("ARRAY");
-                comboBox_objectType.Items.Add("RECORD");
+                comboBox_objectType.Items.Add(ObjectType.VAR.ToString());
+                comboBox_objectType.Items.Add(ObjectType.ARRAY.ToString());
+                comboBox_objectType.Items.Add(ObjectType.RECORD.ToString());
 
                 foreach (AccessSDO foo in Enum.GetValues(typeof(AccessSDO)))
                     comboBox_accessSDO.Items.Add(foo.ToString());
@@ -235,7 +235,7 @@ namespace ODEditor
                 lvi.Tag = od;
                 listView_subObjects.Items.Add(lvi);
             }
-            else if (od.objecttype == ObjectType.ARRAY || od.objecttype == ObjectType.REC)
+            else if (od.objecttype == ObjectType.ARRAY || od.objecttype == ObjectType.RECORD)
             {
                 ListViewItem lvi = new ListViewItem(new string[]{
                     " ",
@@ -398,7 +398,7 @@ namespace ODEditor
             od.parameter_name = textBox_name.Text;
             od.denotation = textBox_denotation.Text;
             od.Description = textBox_description.Text.Replace("\r\n", "\n");
-            od.ObjectTypeString(od.parent == null ? comboBox_objectType.SelectedItem.ToString() : "VAR");
+            od.ObjectTypeString(od.parent == null ? comboBox_objectType.SelectedItem.ToString() : "VAR"); 
 
             if (od.objecttype == ObjectType.VAR)
             {
@@ -570,10 +570,10 @@ namespace ODEditor
                 {
                     ODentry parent = od.parent == null ? od : od.parent;
 
-                    if (parent.objecttype == ObjectType.ARRAY || parent.objecttype == ObjectType.REC)
+                    if (parent.objecttype == ObjectType.ARRAY || parent.objecttype == ObjectType.RECORD)
                     {
                         contextMenu_subObject_removeSubItemToolStripMenuItem.Enabled = od.Subindex > 0 && od.parent != null;
-                        contextMenu_subObject_removeSubItemLeaveGapToolStripMenuItem.Enabled = parent.objecttype == ObjectType.REC && od.Subindex > 0 && od.parent != null;
+                        contextMenu_subObject_removeSubItemLeaveGapToolStripMenuItem.Enabled = parent.objecttype == ObjectType.RECORD && od.Subindex > 0 && od.parent != null;
 
                         if (listView_subObjects.FocusedItem.Bounds.Contains(e.Location) == true)
                         {

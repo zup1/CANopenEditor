@@ -25,6 +25,7 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Reflection;
 using CanOpenXSD_1_1;
+using System.Runtime.Remoting.Messaging;
 
 namespace libEDSsharp
 {
@@ -75,7 +76,7 @@ namespace libEDSsharp
         DEFSTRUCT=6,
         VAR = 7,
         ARRAY = 8,
-        REC = 9,
+        RECORD = 9,
     }
 
     public enum PDOMappingType
@@ -1251,27 +1252,18 @@ namespace libEDSsharp
             }
         }
 
+        /// <summary>
+        /// Provide a simple string representation of the object type. Returns the string of the ENUM ObjectType.VAR if objecttype is not enumed  
+        /// </summary>
+        /// <returns>string representation of object type </returns>
         public string ObjectTypeString()
         {
-            switch (objecttype)
-            {
-                default:
-                case ObjectType.VAR: return "VAR";
-                case ObjectType.ARRAY: return "ARRAY";
-                case ObjectType.REC: return "RECORD";
-            }
+                return Enum.IsDefined(typeof(ObjectType), objecttype) ? objecttype.ToString() : ObjectType.VAR.ToString();
         }
 
         public void ObjectTypeString(string objectType)
         {
-            switch (objectType)
-            {
-                default:
-                case "VAR": this.objecttype = ObjectType.VAR; break;
-                case "ARRAY": this.objecttype = ObjectType.ARRAY; break;
-                case "REC":
-                case "RECORD": this.objecttype = ObjectType.REC; break;
-            }
+            this.objecttype = Enum.IsDefined(typeof(ObjectType), objecttype) ? objecttype : ObjectType.VAR;
         }
 
         public AccessSDO AccessSDO()
@@ -1368,7 +1360,7 @@ namespace libEDSsharp
             
             ODentry newOd;
 
-            if ((baseObject.Nosubindexes == 0) && ((baseObject.objecttype == ObjectType.ARRAY) || (baseObject.objecttype == ObjectType.REC))) {
+            if ((baseObject.Nosubindexes == 0) && ((baseObject.objecttype == ObjectType.ARRAY) || (baseObject.objecttype == ObjectType.RECORD))) {
                 baseObject.subobjects.Add(0, new ODentry
                 {
                     parent = baseObject,
@@ -1438,7 +1430,7 @@ namespace libEDSsharp
         /// <returns>true on successfull removal</returns>
         public bool RemoveSubEntry(bool renumber)
         {
-            if (parent != null && (parent.objecttype == ObjectType.ARRAY || parent.objecttype == ObjectType.REC))
+            if (parent != null && (parent.objecttype == ObjectType.ARRAY || parent.objecttype == ObjectType.RECORD))
             {
                 UInt16 maxSubIndex = EDSsharp.ConvertToUInt16(parent.subobjects[0].defaultvalue);
                 UInt16 lastSubIndex = parent.subobjects.Values.Last().Subindex;
@@ -1531,7 +1523,7 @@ namespace libEDSsharp
                 writer.WriteLine(string.Format("SubNumber=0x{0:X}", Nosubindexes));
             }
 
-            if (objecttype == ObjectType.REC)
+            if (objecttype == ObjectType.RECORD)
             {
                 writer.WriteLine(string.Format("SubNumber=0x{0:X}", Nosubindexes));
             }
@@ -1712,12 +1704,13 @@ namespace libEDSsharp
             return false;
         }
 
+
         public byte Getmaxsubindex()
         {
             //Although subindex 0 should contain the max subindex value
             //we don't enforce that anywhere in this lib, we should have a setter function
             //that sets it to the highest subobject found.
-            if (objecttype == ObjectType.ARRAY || objecttype == ObjectType.REC)
+            if (objecttype == ObjectType.ARRAY || objecttype == ObjectType.RECORD)
                 if (Containssubindex(0))
                 {
                     return EDSsharp.ConvertToByte(Getsubobjectdefaultvalue(0));
@@ -2294,7 +2287,7 @@ namespace libEDSsharp
                 }
 
               
-                if(od.objecttype == ObjectType.REC|| od.objecttype == ObjectType.ARRAY || od.objecttype == ObjectType.DEFSTRUCT)
+                if(od.objecttype == ObjectType.RECORD|| od.objecttype == ObjectType.ARRAY || od.objecttype == ObjectType.DEFSTRUCT)
                 {
 
                     if (od.CompactSubObj != 0)
@@ -3091,7 +3084,7 @@ mapped object  (subindex 1...8)
                 };
             }
 
-            od_comparam.objecttype = ObjectType.REC;
+            od_comparam.objecttype = ObjectType.RECORD;
             od_comparam.prop.CO_storageGroup = "ROM";
             od_comparam.accesstype = AccessType.ro;
             od_comparam.PDOtype = PDOMappingType.no;
@@ -3128,7 +3121,7 @@ mapped object  (subindex 1...8)
 
             }
 
-            od_mapping.objecttype = ObjectType.REC;
+            od_mapping.objecttype = ObjectType.RECORD;
             od_mapping.prop.CO_storageGroup = "ROM";
             od_mapping.accesstype = AccessType.rw; //Same as default but inconsistent with ROM above
             od_mapping.PDOtype = PDOMappingType.no;

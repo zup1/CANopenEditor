@@ -308,7 +308,7 @@ namespace libEDSsharp
                 ODentry config = new ODentry();
                 config.Index = slot.ConfigurationIndex;
                 config.datatype = DataType.PDO_COMMUNICATION_PARAMETER;
-                config.objecttype = ObjectType.REC;
+                config.objecttype = ObjectType.RECORD;
 
                 ODentry sub = new ODentry("max sub-index", (ushort)slot.ConfigurationIndex, 0);
                 sub.defaultvalue = "6";
@@ -391,7 +391,7 @@ namespace libEDSsharp
                 ODentry mapping = new ODentry();
                 mapping.Index = slot.MappingIndex;
                 mapping.datatype = DataType.PDO_MAPPING;
-                mapping.objecttype = ObjectType.REC;
+                mapping.objecttype = ObjectType.RECORD;
 
                 if(slot.isTXPDO())
                     mapping.parameter_name = "TPDO mapping parameter";
