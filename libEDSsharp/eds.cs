@@ -2867,7 +2867,7 @@ namespace libEDSsharp
 
             int nobase = 10;
 
-            String pat = @"^0[xX][0-9a-fA-F]+";
+            String pat = @"^\s*0[xX][0-9a-fA-F]+\s*$";
 
             Regex r = new Regex(pat, RegexOptions.IgnoreCase);
             Match m = r.Match(defaultvalue);
@@ -2929,14 +2929,12 @@ namespace libEDSsharp
                     input = input.Replace("$NODEID", "");
                     input = input.Replace("+", "");
                     input = input.Replace(" ", "");
-                    return Convert.ToUInt32(input, Getbase(input));
+                    return Convert.ToUInt32(input.Trim(), Getbase(input));
                 }
 
-                input = input.Replace("$NODEID", String.Format("0x{0}", dc.NodeId));
-
-                string[] bits = input.Split('+');
-
-                if(bits.Length==1)
+                input = input.Replace("$NODEID", dc.NodeId.ToString()); // dc.NodeID is decimal
+                string[] bits = Array.ConvertAll(input.Split('+'), p => p.Trim()); // Split and Trim the value
+                if (bits.Length==1)
                 {
                     //nothing to parse here just return the value
                     return Convert.ToUInt32(input, Getbase(input));
