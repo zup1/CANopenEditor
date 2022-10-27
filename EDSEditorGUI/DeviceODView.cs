@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using libEDSsharp;
-
 namespace ODEditor
 {
 
@@ -37,17 +36,34 @@ namespace ODEditor
         ODentry lastSelectedObject;
         ListView selectedList;
         bool justUpdating = false;
-        readonly bool CANopenNodeV4;
-
+        bool ExporterOld = false;
+        bool ExporterV4 = false;
+       
         public DeviceODView()
         {
-            ExporterFactory.Exporter type = (ExporterFactory.Exporter)Properties.Settings.Default.ExporterType;
-            CANopenNodeV4 = (type == ExporterFactory.Exporter.CANOPENNODE_V4);
 
             InitializeComponent();
+            RebuildControls();
 
-            if (CANopenNodeV4)
+            // other elements may be added in PopulateObjectLists()
+            comboBox_countLabel.Items.Add("");
+            comboBox_countLabel.Items.Add("Add...");
+            comboBox_countLabel.SelectedIndexChanged += new System.EventHandler(this.ComboBox_countLabel_Add);
+            comboBox_storageGroup.Items.Add("Add...");
+            comboBox_storageGroup.SelectedIndexChanged += new System.EventHandler(this.ComboBox_storageGroup_Add);
+
+            listView_communication_objects.DoubleBuffering(true);
+            listView_deviceProfile_objects.DoubleBuffering(true);
+            listView_manufacturer_objects.DoubleBuffering(true);
+            listView_subObjects.DoubleBuffering(true);
+        }
+
+
+        public void RebuildControls()
+        {
+            if (ExporterTypeV4())
             {
+                comboBox_dataType.Items.Clear();
                 comboBox_dataType.Items.Add(DataType.BOOLEAN.ToString());
                 comboBox_dataType.Items.Add(DataType.INTEGER8.ToString());
                 comboBox_dataType.Items.Add(DataType.INTEGER16.ToString());
@@ -64,13 +80,16 @@ namespace ODEditor
                 comboBox_dataType.Items.Add(DataType.UNICODE_STRING.ToString());
                 comboBox_dataType.Items.Add(DataType.DOMAIN.ToString());
 
+                comboBox_objectType.Items.Clear();
                 comboBox_objectType.Items.Add(ObjectType.VAR.ToString());
                 comboBox_objectType.Items.Add(ObjectType.ARRAY.ToString());
                 comboBox_objectType.Items.Add(ObjectType.RECORD.ToString());
 
+                comboBox_accessSDO.Items.Clear();
                 foreach (AccessSDO foo in Enum.GetValues(typeof(AccessSDO)))
                     comboBox_accessSDO.Items.Add(foo.ToString());
 
+                comboBox_accessPDO.Items.Clear();
                 foreach (AccessPDO foo in Enum.GetValues(typeof(AccessPDO)))
                     comboBox_accessPDO.Items.Add(foo.ToString());
 
@@ -79,37 +98,32 @@ namespace ODEditor
             }
             else
             {
+                comboBox_dataType.Items.Clear();
                 foreach (DataType foo in Enum.GetValues(typeof(DataType)))
                     comboBox_dataType.Items.Add(foo.ToString());
+                comboBox_objectType.Items.Clear();
                 foreach (ObjectType foo in Enum.GetValues(typeof(ObjectType)))
                     comboBox_objectType.Items.Add(foo.ToString());
+                comboBox_accessSDO.Items.Clear();
                 foreach (EDSsharp.AccessType foo in Enum.GetValues(typeof(EDSsharp.AccessType)))
                     comboBox_accessSDO.Items.Add(foo.ToString());
+                comboBox_accessPDO.Items.Clear();
                 foreach (PDOMappingType foo in Enum.GetValues(typeof(PDOMappingType)))
                     comboBox_accessPDO.Items.Add(foo.ToString());
-
-                //comboBox_accessSDO.Items.Add("0x1003 rw/ro");
-                //comboBox_accessSDO.Items.Add("0x1010 const/rw");
-                //comboBox_accessSDO.Items.Add("0x1010 const/ro");
 
                 label_pdoFlags.Visible = true;
                 checkBox_pdoFlags.Visible = true;
             }
 
+            comboBox_accessSRDO.Items.Clear();
             foreach (AccessSRDO foo in Enum.GetValues(typeof(AccessSRDO)))
                 comboBox_accessSRDO.Items.Add(foo.ToString());
 
-            // other elements may be added in PopulateObjectLists()
-            comboBox_countLabel.Items.Add("");
-            comboBox_countLabel.Items.Add("Add...");
-            comboBox_countLabel.SelectedIndexChanged += new System.EventHandler(this.ComboBox_countLabel_Add);
-            comboBox_storageGroup.Items.Add("Add...");
-            comboBox_storageGroup.SelectedIndexChanged += new System.EventHandler(this.ComboBox_storageGroup_Add);
 
-            listView_communication_objects.DoubleBuffering(true);
-            listView_deviceProfile_objects.DoubleBuffering(true);
-            listView_manufacturer_objects.DoubleBuffering(true);
-            listView_subObjects.DoubleBuffering(true);
+        }
+        private bool ExporterTypeV4() { 
+            ExporterFactory.Exporter type = (ExporterFactory.Exporter)Properties.Settings.Default.ExporterType;
+            return (type == ExporterFactory.Exporter.CANOPENNODE_V4);
         }
 
         private bool Checkdirty()
@@ -217,8 +231,7 @@ namespace ODEditor
 
             if (selectedObject == null)
                 return;
-
-            ODentry od = selectedObject.parent == null ? selectedObject : selectedObject.parent;
+            ODentry od = selectedObject.parent ?? selectedObject;
 
             if (od.objecttype == ObjectType.VAR)
             {
@@ -268,8 +281,17 @@ namespace ODEditor
 
         public void PopulateObject()
         {
+
+            ExporterV4 = ExporterTypeV4();
+            if (ExporterOld != ExporterV4)
+            {
+                RebuildControls();
+                ExporterOld = ExporterV4;
+            }
+
             justUpdating = true;
             lastSelectedObject = selectedObject;
+
 
             if (selectedObject == null)
             {
@@ -308,7 +330,8 @@ namespace ODEditor
                                 ? od.parent.datatype.ToString()
                                 : od.datatype.ToString();
                 ComboBoxSet(comboBox_dataType, dataType);
-                if (CANopenNodeV4)
+
+                if (ExporterV4)
                 {
                     comboBox_accessSDO.SelectedItem = od.AccessSDO().ToString();
                     comboBox_accessPDO.SelectedItem = od.AccessPDO().ToString();
@@ -388,6 +411,14 @@ namespace ODEditor
 
         private void Button_saveChanges_Click(object sender, EventArgs e)
         {
+
+            ExporterV4 = ExporterTypeV4();
+            if (ExporterOld != ExporterV4)
+            {
+                RebuildControls();
+                ExporterOld = ExporterV4;
+            }
+
             if (selectedObject == null)
                 return;
 
@@ -411,7 +442,7 @@ namespace ODEditor
                     od.datatype = DataType.UNKNOWN;
                 }
 
-                if (CANopenNodeV4)
+                if (ExporterV4)
                 {
                     AccessSDO accessSDO;
                     try
@@ -568,7 +599,7 @@ namespace ODEditor
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    ODentry parent = od.parent == null ? od : od.parent;
+                    ODentry parent = od.parent ?? od;
 
                     if (parent.objecttype == ObjectType.ARRAY || parent.objecttype == ObjectType.RECORD)
                     {
