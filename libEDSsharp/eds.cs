@@ -26,6 +26,7 @@ using System.Globalization;
 using System.Reflection;
 using CanOpenXSD_1_1;
 using System.Runtime.Remoting.Messaging;
+using System.Net.NetworkInformation;
 
 namespace libEDSsharp
 {
@@ -812,7 +813,7 @@ namespace libEDSsharp
         public DeviceCommissioning()
         {
             infoheader = "CAN OPEN DeviceCommissioning";
-            edssection = "DeviceCommissioning";
+            edssection = "DeviceComissioning";  
         }
 
         public DeviceCommissioning(Dictionary<string, string> section) : this()
@@ -2410,9 +2411,14 @@ namespace libEDSsharp
 
                 //Only DCF not EDS files
                 dc = new DeviceCommissioning();
-                if(eds.ContainsKey("DeviceCommissioning"))
-                {
-                    dc.Parse(eds["DeviceCommissioning"],"DeviceCommissioning");
+                string strSection = "";
+                if (eds.ContainsKey("DeviceCommissioning"))     // wrong section name as defined in the DSP302, but right spelling (for compabiltiy to some tools)
+                    strSection = "DeviceCommissioning";
+                else if (eds.ContainsKey("DeviceComissioning")) // right section name as defined in the DSP302, (wrong spelling)
+                    strSection = "DeviceComissioning";
+
+                if (strSection != ""){
+                    dc.Parse(eds[strSection],"DeviceCommissioning");
                     edsfilename = fi.LastEDS;
                 }
                 
