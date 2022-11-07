@@ -21,6 +21,8 @@ using System;
 using System.Windows.Forms;
 using libEDSsharp;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Drawing;
 
 namespace ODEditor
 {
@@ -90,7 +92,37 @@ namespace ODEditor
                 checkBox_canopenmanager.Checked = eds.dc.CANopenManager;
                 textBox_lssserial.Text = eds.dc.LSS_SerialNumber.ToString();
             }
+
+            AddOnChangeHandlerToInputControls(this.Controls);
+
         }
+
+
+        void InputControls_OnChange(object sender, EventArgs e)
+        {
+            // Do something to indicate the form is dirty like:
+            button_update_devfile_info.BackColor = System.Drawing.Color.Red;
+        }
+
+        void AddOnChangeHandlerToInputControls(ControlCollection ctrl)
+        {
+            foreach (Control subctrl in ctrl)
+            {
+                if (subctrl is TextBox)
+                    ((TextBox)subctrl).TextChanged +=
+                        new EventHandler(InputControls_OnChange);
+                else if (subctrl is CheckBox)
+                    ((CheckBox)subctrl).CheckedChanged +=
+                        new EventHandler(InputControls_OnChange);
+                else
+                {
+                    if (subctrl.Controls.Count > 0)
+                        this.AddOnChangeHandlerToInputControls(subctrl.Controls);
+                }
+            }
+    }
+
+
 
         private void button_update_devfile_info_Click(object sender, EventArgs e)
         {
@@ -139,6 +171,9 @@ namespace ODEditor
                 eds.dc.LSS_SerialNumber = Convert.ToUInt32(textBox_lssserial.Text);
 
                 eds.Dirty = true;
+                button_update_devfile_info.BackColor = SystemColors.ButtonFace;
+                button_update_devfile_info.UseVisualStyleBackColor = true;
+
             }
             catch (Exception ex)
             {
