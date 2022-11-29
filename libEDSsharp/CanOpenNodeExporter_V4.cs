@@ -169,7 +169,7 @@ namespace libEDSsharp
 
                 // object dictionary
                 if ((odObjectType == "ARRAY") || (odObjectType) == "RECORD")
-                    odObjectType.Substring(0, 3);
+                    odObjectType = odObjectType.Substring(0, 3);
 
                 ODList.Add($"{{0x{indexH}, 0x{subEntriesCount:X2}, ODT_{odObjectType}, &{odname}Objs.o_{varName}, NULL}}");
 
