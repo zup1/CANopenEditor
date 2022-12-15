@@ -108,10 +108,11 @@ namespace ODEditor
         {
             foreach (Control subctrl in ctrl)
             {
-                if (subctrl is TextBox)
-                    ((TextBox)subctrl).TextChanged +=
-                        new EventHandler(InputControls_OnChange);
-                else if (subctrl is CheckBox)
+                //if (subctrl is TextBox)
+                //    ((TextBox)subctrl).TextChanged +=
+                //        new EventHandler(InputControls_OnChange);
+                //else 
+                if (subctrl is CheckBox)
                     ((CheckBox)subctrl).CheckedChanged +=
                         new EventHandler(InputControls_OnChange);
                 else
