@@ -311,7 +311,7 @@ namespace libEDSsharp
                 config.objecttype = ObjectType.RECORD;
 
                 ODentry sub = new ODentry("max sub-index", (ushort)slot.ConfigurationIndex, 0);
-                sub.defaultvalue = "6";
+                sub.defaultvalue = slot.isTXPDO()? "6" : "5";// max supported sub index TPDO=6, RPDO=5 according DS301
                 sub.datatype = DataType.UNSIGNED8;
                 sub.accesstype = EDSsharp.AccessType.ro;
                 config.addsubobject(0x00,sub);
@@ -384,6 +384,12 @@ namespace libEDSsharp
                     sub.defaultvalue = slot.transmissiontype.ToString();
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x02, sub);
+
+                    sub = new ODentry("event timer", (ushort)slot.ConfigurationIndex, 5);
+                    sub.datatype = DataType.UNSIGNED16;
+                    sub.defaultvalue = slot.eventtimer.ToString();
+                    sub.accesstype = EDSsharp.AccessType.rw;
+                    config.addsubobject(0x05, sub);
                 }
 
                 eds.ods.Add(slot.ConfigurationIndex,config);
