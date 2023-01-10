@@ -329,9 +329,9 @@ namespace libEDSsharp
 
                     sub = new ODentry("COB-ID used by TPDO", (ushort)slot.ConfigurationIndex, 1);
                     sub.datatype = DataType.UNSIGNED32;
-                    sub.defaultvalue = slot.COB.ToHexString();
                     if (slot.nodeidpresent)
-                        sub.defaultvalue += " + $NODEID";
+                        sub.defaultvalue = "$NODEID + "; // DSP306: "The $NODEID must appear at the beginning of the expression. Otherwise the line is interpreted as without a formula. 
+                    sub.defaultvalue += slot.COB.ToHexString();
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x01, sub);
 
@@ -373,9 +373,9 @@ namespace libEDSsharp
 
                     sub = new ODentry("COB-ID used by RPDO", (ushort)slot.ConfigurationIndex, 1);
                     sub.datatype = DataType.UNSIGNED32;
-                    sub.defaultvalue = slot.COB.ToHexString();
                     if (slot.nodeidpresent)
-                        sub.defaultvalue += " + $NODEID";
+                        sub.defaultvalue = "$NODEID + "; // DSP306: "The $NODEID must appear at the beginning of the expression. Otherwise the line is interpreted as without a formula. 
+                    sub.defaultvalue += slot.COB.ToHexString();
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x01, sub);
 

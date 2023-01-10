@@ -2546,7 +2546,7 @@ namespace libEDSsharp
                 {
                     //Fill in cob ID
                     //FIX ME i'm really sure this is not correct, what default values should be used???
-                    string cob = string.Format("0x180+$NODEID");
+                    string cob = string.Format("$NODEID + 0x180");
                     ODentry subod = new ODentry("COB-ID", index, DataType.UNSIGNED32, cob, AccessType.rw, PDOMappingType.no, ods[index]);
                     ods[index].subobjects.Add(0x05, subod);
 
