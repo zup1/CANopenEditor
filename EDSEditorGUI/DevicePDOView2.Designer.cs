@@ -48,30 +48,35 @@
             this.textBox_cob = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label_availableobjects = new System.Windows.Forms.Label();
             this.listView_TXPDO = new System.Windows.Forms.ListView();
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.grid1 = new SourceGrid.Grid();
-            this.button_down = new System.Windows.Forms.Button();
             this.button_up = new System.Windows.Forms.Button();
             this.contextMenuStrip_removeitem = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem_removeitem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_insert = new System.Windows.Forms.ToolStripMenuItem();
+            this.grid1 = new SourceGrid.Grid();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.button_down = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip_removeitem.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_addPDO
             // 
             this.button_addPDO.Image = global::ODEditor.Properties.Resources.action_add_16xLG;
             this.button_addPDO.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button_addPDO.Location = new System.Drawing.Point(884, 26);
+            this.button_addPDO.Location = new System.Drawing.Point(912, 101);
             this.button_addPDO.Name = "button_addPDO";
-            this.button_addPDO.Size = new System.Drawing.Size(117, 27);
+            this.button_addPDO.Size = new System.Drawing.Size(101, 27);
             this.button_addPDO.TabIndex = 15;
             this.button_addPDO.Text = "Add new PDO";
             this.button_addPDO.UseVisualStyleBackColor = true;
@@ -82,8 +87,6 @@
             this.groupBox1.Controls.Add(this.textBox_mapping);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.checkBox_invalidpdo);
-            this.groupBox1.Controls.Add(this.button_savepdochanges);
-            this.groupBox1.Controls.Add(this.button_deletePDO);
             this.groupBox1.Controls.Add(this.textBox_slot);
             this.groupBox1.Controls.Add(this.textBox_syncstart);
             this.groupBox1.Controls.Add(this.textBox_eventtimer);
@@ -96,9 +99,9 @@
             this.groupBox1.Controls.Add(this.textBox_cob);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(528, 15);
+            this.groupBox1.Location = new System.Drawing.Point(612, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(340, 206);
+            this.groupBox1.Size = new System.Drawing.Size(283, 206);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Communication parameters";
@@ -123,7 +126,7 @@
             // checkBox_invalidpdo
             // 
             this.checkBox_invalidpdo.AutoSize = true;
-            this.checkBox_invalidpdo.Location = new System.Drawing.Point(208, 76);
+            this.checkBox_invalidpdo.Location = new System.Drawing.Point(214, 183);
             this.checkBox_invalidpdo.Name = "checkBox_invalidpdo";
             this.checkBox_invalidpdo.Size = new System.Drawing.Size(57, 17);
             this.checkBox_invalidpdo.TabIndex = 2;
@@ -135,7 +138,7 @@
             // 
             this.button_savepdochanges.Image = global::ODEditor.Properties.Resources.Save_6530;
             this.button_savepdochanges.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button_savepdochanges.Location = new System.Drawing.Point(208, 161);
+            this.button_savepdochanges.Location = new System.Drawing.Point(912, 177);
             this.button_savepdochanges.Name = "button_savepdochanges";
             this.button_savepdochanges.Size = new System.Drawing.Size(101, 27);
             this.button_savepdochanges.TabIndex = 8;
@@ -147,7 +150,7 @@
             // 
             this.button_deletePDO.Image = global::ODEditor.Properties.Resources.Remove_16xLG;
             this.button_deletePDO.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button_deletePDO.Location = new System.Drawing.Point(208, 128);
+            this.button_deletePDO.Location = new System.Drawing.Point(912, 138);
             this.button_deletePDO.Name = "button_deletePDO";
             this.button_deletePDO.Size = new System.Drawing.Size(101, 27);
             this.button_deletePDO.TabIndex = 7;
@@ -251,15 +254,6 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Communication";
             // 
-            // label_availableobjects
-            // 
-            this.label_availableobjects.AutoSize = true;
-            this.label_availableobjects.Location = new System.Drawing.Point(28, 7);
-            this.label_availableobjects.Name = "label_availableobjects";
-            this.label_availableobjects.Size = new System.Drawing.Size(130, 13);
-            this.label_availableobjects.TabIndex = 18;
-            this.label_availableobjects.Text = "Available Objects for PDO";
-            // 
             // listView_TXPDO
             // 
             this.listView_TXPDO.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -270,10 +264,10 @@
             this.columnHeader1});
             this.listView_TXPDO.FullRowSelect = true;
             this.listView_TXPDO.HideSelection = false;
-            this.listView_TXPDO.Location = new System.Drawing.Point(31, 24);
+            this.listView_TXPDO.Location = new System.Drawing.Point(6, 19);
             this.listView_TXPDO.MultiSelect = false;
             this.listView_TXPDO.Name = "listView_TXPDO";
-            this.listView_TXPDO.Size = new System.Drawing.Size(492, 199);
+            this.listView_TXPDO.Size = new System.Drawing.Size(587, 182);
             this.listView_TXPDO.TabIndex = 17;
             this.listView_TXPDO.UseCompatibleStateImageBehavior = false;
             this.listView_TXPDO.View = System.Windows.Forms.View.Details;
@@ -303,41 +297,12 @@
             // 
             this.columnHeader1.Text = "Bits";
             // 
-            // grid1
-            // 
-            this.grid1.AllowDrop = true;
-            this.grid1.DefaultWidth = 18;
-            this.grid1.EnableSort = true;
-            this.grid1.Location = new System.Drawing.Point(30, 244);
-            this.grid1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.grid1.Name = "grid1";
-            this.grid1.OptimizeMode = SourceGrid.CellOptimizeMode.ForRows;
-            this.grid1.SelectionMode = SourceGrid.GridSelectionMode.Cell;
-            this.grid1.Size = new System.Drawing.Size(1033, 288);
-            this.grid1.TabIndex = 21;
-            this.grid1.TabStop = true;
-            this.grid1.ToolTipText = "";
-            this.grid1.DragDrop += new System.Windows.Forms.DragEventHandler(this.grid1_DragDrop);
-            this.grid1.DragEnter += new System.Windows.Forms.DragEventHandler(this.grid1_DragEnter);
-            this.grid1.DragOver += new System.Windows.Forms.DragEventHandler(this.grid1_DragOver);
-            // 
-            // button_down
-            // 
-            this.button_down.Location = new System.Drawing.Point(32, 535);
-            this.button_down.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button_down.Name = "button_down";
-            this.button_down.Size = new System.Drawing.Size(69, 30);
-            this.button_down.TabIndex = 22;
-            this.button_down.Text = "Zoom Out";
-            this.button_down.UseVisualStyleBackColor = true;
-            this.button_down.Click += new System.EventHandler(this.button_down_Click);
-            // 
             // button_up
             // 
-            this.button_up.Location = new System.Drawing.Point(105, 535);
-            this.button_up.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_up.Location = new System.Drawing.Point(2, 396);
+            this.button_up.Margin = new System.Windows.Forms.Padding(2);
             this.button_up.Name = "button_up";
-            this.button_up.Size = new System.Drawing.Size(75, 30);
+            this.button_up.Size = new System.Drawing.Size(85, 30);
             this.button_up.TabIndex = 23;
             this.button_up.Text = "Zoom In";
             this.button_up.UseVisualStyleBackColor = true;
@@ -367,24 +332,105 @@
             this.toolStripMenuItem_insert.Tag = "insert";
             this.toolStripMenuItem_insert.Text = "Insert Item";
             // 
+            // grid1
+            // 
+            this.grid1.AllowDrop = true;
+            this.grid1.AutoSize = true;
+            this.grid1.DefaultWidth = 18;
+            this.grid1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid1.EnableSort = true;
+            this.grid1.Location = new System.Drawing.Point(3, 16);
+            this.grid1.Margin = new System.Windows.Forms.Padding(2);
+            this.grid1.Name = "grid1";
+            this.grid1.OptimizeMode = SourceGrid.CellOptimizeMode.ForRows;
+            this.grid1.SelectionMode = SourceGrid.GridSelectionMode.Cell;
+            this.grid1.Size = new System.Drawing.Size(1312, 369);
+            this.grid1.TabIndex = 21;
+            this.grid1.TabStop = true;
+            this.grid1.ToolTipText = "";
+            this.grid1.DragDrop += new System.Windows.Forms.DragEventHandler(this.grid1_DragDrop);
+            this.grid1.DragEnter += new System.Windows.Forms.DragEventHandler(this.grid1_DragEnter);
+            this.grid1.DragOver += new System.Windows.Forms.DragEventHandler(this.grid1_DragOver);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.29685F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.70316F));
+            this.tableLayoutPanel1.Controls.Add(this.button_down, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.button_up, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 219);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1324, 431);
+            this.tableLayoutPanel1.TabIndex = 26;
+            // 
+            // button_down
+            // 
+            this.button_down.Location = new System.Drawing.Point(138, 396);
+            this.button_down.Margin = new System.Windows.Forms.Padding(2);
+            this.button_down.Name = "button_down";
+            this.button_down.Size = new System.Drawing.Size(102, 31);
+            this.button_down.TabIndex = 22;
+            this.button_down.Text = "Zoom Out";
+            this.button_down.UseVisualStyleBackColor = true;
+            this.button_down.Click += new System.EventHandler(this.button_down_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.groupBox2, 2);
+            this.groupBox2.Controls.Add(this.grid1);
+            this.groupBox2.Location = new System.Drawing.Point(3, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1318, 388);
+            this.groupBox2.TabIndex = 24;
+            this.groupBox2.TabStop = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.listView_TXPDO);
+            this.groupBox3.Location = new System.Drawing.Point(5, 7);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(593, 205);
+            this.groupBox3.TabIndex = 27;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Available Objects for PDO";
+            // 
             // DevicePDOView2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.Controls.Add(this.button_up);
-            this.Controls.Add(this.button_down);
-            this.Controls.Add(this.grid1);
-            this.Controls.Add(this.label_availableobjects);
-            this.Controls.Add(this.listView_TXPDO);
-            this.Controls.Add(this.button_addPDO);
+            this.AutoSize = true;
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Controls.Add(this.button_addPDO);
+            this.Controls.Add(this.button_savepdochanges);
+            this.Controls.Add(this.button_deletePDO);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "DevicePDOView2";
-            this.Size = new System.Drawing.Size(1067, 570);
+            this.Size = new System.Drawing.Size(1330, 741);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.contextMenuStrip_removeitem.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -407,14 +453,11 @@
         private System.Windows.Forms.TextBox textBox_cob;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label_availableobjects;
         private System.Windows.Forms.ListView listView_TXPDO;
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.ColumnHeader columnHeader15;
         private System.Windows.Forms.ColumnHeader columnHeader16;
         private System.Windows.Forms.ColumnHeader columnHeader17;
-        private SourceGrid.Grid grid1;
-        private System.Windows.Forms.Button button_down;
         private System.Windows.Forms.Button button_up;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_removeitem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_removeitem;
@@ -423,5 +466,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_savepdochanges;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private SourceGrid.Grid grid1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button button_down;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }
