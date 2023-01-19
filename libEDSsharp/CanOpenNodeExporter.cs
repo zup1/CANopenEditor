@@ -1142,6 +1142,7 @@ const CO_OD_entry_t CO_OD[CO_OD_NoOfElements] = {
             {
                 int nobase = 10;
                 bool nodeidreplace = false;
+                
 
                 if (defaultvalue == null || defaultvalue == "")
                 {
@@ -1166,6 +1167,7 @@ const CO_OD_entry_t CO_OD[CO_OD_NoOfElements] = {
                 {
                     defaultvalue = defaultvalue.Replace("$NODEID", "");
                     defaultvalue = defaultvalue.Replace("+", "");
+                    defaultvalue = defaultvalue.Trim();
                     nodeidreplace = true;
                 }
 
