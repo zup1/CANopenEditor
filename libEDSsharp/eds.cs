@@ -822,13 +822,13 @@ namespace libEDSsharp
         }
 
         [DcfExport]
-        public byte NodeId = 0;
+        public byte NodeID = 0;
 
         [DcfExport(maxlength = 246)]
         public string NodeName = ""; //Max 246 characters
 
         [DcfExport]
-        public UInt16 BaudRate;
+        public UInt16 Baudrate;
 
         [DcfExport]
         public UInt32 NetNumber;
@@ -1904,7 +1904,7 @@ namespace libEDSsharp
 
         public Dictionary<UInt16, Module> modules;
 
-        public UInt16 NodeId = 0;
+        public UInt16 NodeID = 0;
 
         public delegate void DataDirty(bool dirty, EDSsharp sender);
         public event DataDirty OnDataDirty;
@@ -2930,7 +2930,7 @@ namespace libEDSsharp
 
             try
             {
-                if (dc.NodeId == 0)
+                if (dc.NodeID == 0)
                 {
                     input = input.Replace("$NODEID", "");
                     input = input.Replace("+", "");
@@ -2938,7 +2938,7 @@ namespace libEDSsharp
                     return Convert.ToUInt32(input.Trim(), Getbase(input));
                 }
 
-                input = input.Replace("$NODEID", dc.NodeId.ToString()); // dc.NodeID is decimal
+                input = input.Replace("$NODEID", dc.NodeID.ToString()); // dc.NodeID is decimal
                 string[] bits = Array.ConvertAll(input.Split('+'), p => p.Trim()); // Split and Trim the value
                 if (bits.Length==1)
                 {
