@@ -2021,7 +2021,7 @@ namespace libEDSsharp
                     }
                     if (missing)
                         mappingErrors.Add($"{PDO} 0x{indexPdo:X4},0x{subIdxPdo:X2}: missing OD entry 0x{mapIdx:X4},0x{mapSub:X2}");
-                    else if (accessPDO == AccessPDO.no || (PDO == "RPDO" && accessPDO == AccessPDO.r) || (PDO == "TPDO" && accessPDO == AccessPDO.t))
+                    else if (accessPDO == AccessPDO.no || (PDO == "RPDO" && accessPDO == AccessPDO.t) || (PDO == "TPDO" && accessPDO == AccessPDO.r))
                         mappingErrors.Add($"{PDO} 0x{indexPdo:X4},0x{subIdxPdo:X2}: not mappable OD entry 0x{mapIdx:X4},0x{mapSub:X2}");
                 }
             }
