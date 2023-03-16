@@ -34,8 +34,6 @@
             this.textBox_mapping = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox_invalidpdo = new System.Windows.Forms.CheckBox();
-            this.button_savepdochanges = new System.Windows.Forms.Button();
-            this.button_deletePDO = new System.Windows.Forms.Button();
             this.textBox_slot = new System.Windows.Forms.TextBox();
             this.textBox_syncstart = new System.Windows.Forms.TextBox();
             this.textBox_eventtimer = new System.Windows.Forms.TextBox();
@@ -48,6 +46,8 @@
             this.textBox_cob = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.button_savepdochanges = new System.Windows.Forms.Button();
+            this.button_deletePDO = new System.Windows.Forms.Button();
             this.listView_TXPDO = new System.Windows.Forms.ListView();
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -133,30 +133,6 @@
             this.checkBox_invalidpdo.Text = "Invalid";
             this.checkBox_invalidpdo.UseVisualStyleBackColor = true;
             this.checkBox_invalidpdo.CheckedChanged += new System.EventHandler(this.checkBox_invalidpdo_CheckedChanged);
-            // 
-            // button_savepdochanges
-            // 
-            this.button_savepdochanges.Image = global::ODEditor.Properties.Resources.Save_6530;
-            this.button_savepdochanges.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button_savepdochanges.Location = new System.Drawing.Point(912, 177);
-            this.button_savepdochanges.Name = "button_savepdochanges";
-            this.button_savepdochanges.Size = new System.Drawing.Size(101, 27);
-            this.button_savepdochanges.TabIndex = 8;
-            this.button_savepdochanges.Text = "Save ";
-            this.button_savepdochanges.UseVisualStyleBackColor = true;
-            this.button_savepdochanges.Click += new System.EventHandler(this.button_savepdochanges_Click_1);
-            // 
-            // button_deletePDO
-            // 
-            this.button_deletePDO.Image = global::ODEditor.Properties.Resources.Remove_16xLG;
-            this.button_deletePDO.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button_deletePDO.Location = new System.Drawing.Point(912, 138);
-            this.button_deletePDO.Name = "button_deletePDO";
-            this.button_deletePDO.Size = new System.Drawing.Size(101, 27);
-            this.button_deletePDO.TabIndex = 7;
-            this.button_deletePDO.Text = "Delete PDO";
-            this.button_deletePDO.UseVisualStyleBackColor = true;
-            this.button_deletePDO.Click += new System.EventHandler(this.button_deletePDO_Click);
             // 
             // textBox_slot
             // 
@@ -254,6 +230,30 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Communication";
             // 
+            // button_savepdochanges
+            // 
+            this.button_savepdochanges.Image = global::ODEditor.Properties.Resources.Save_6530;
+            this.button_savepdochanges.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_savepdochanges.Location = new System.Drawing.Point(912, 177);
+            this.button_savepdochanges.Name = "button_savepdochanges";
+            this.button_savepdochanges.Size = new System.Drawing.Size(101, 27);
+            this.button_savepdochanges.TabIndex = 8;
+            this.button_savepdochanges.Text = "Save ";
+            this.button_savepdochanges.UseVisualStyleBackColor = true;
+            this.button_savepdochanges.Click += new System.EventHandler(this.button_savepdochanges_Click_1);
+            // 
+            // button_deletePDO
+            // 
+            this.button_deletePDO.Image = global::ODEditor.Properties.Resources.Remove_16xLG;
+            this.button_deletePDO.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_deletePDO.Location = new System.Drawing.Point(912, 138);
+            this.button_deletePDO.Name = "button_deletePDO";
+            this.button_deletePDO.Size = new System.Drawing.Size(101, 27);
+            this.button_deletePDO.TabIndex = 7;
+            this.button_deletePDO.Text = "Delete PDO";
+            this.button_deletePDO.UseVisualStyleBackColor = true;
+            this.button_deletePDO.Click += new System.EventHandler(this.button_deletePDO_Click);
+            // 
             // listView_TXPDO
             // 
             this.listView_TXPDO.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -272,6 +272,7 @@
             this.listView_TXPDO.UseCompatibleStateImageBehavior = false;
             this.listView_TXPDO.View = System.Windows.Forms.View.Details;
             this.listView_TXPDO.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.listView_TXPDO_ItemDrag);
+            this.listView_TXPDO.SelectedIndexChanged += new System.EventHandler(this.listView_TXPDO_SelectedIndexChanged);
             // 
             // columnHeader13
             // 

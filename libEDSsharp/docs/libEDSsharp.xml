@@ -312,7 +312,7 @@
             filled in with default values from the lowest possible index
             </summary>
         </member>
-        <member name="M:libEDSsharp.PDOHelper.buildmappingsfromlists">
+        <member name="M:libEDSsharp.PDOHelper.buildmappingsfromlists(System.Boolean)">
             <summary>
             Rebuild the communication and mapping paramaters from the
             lists the PDOhelper currently has. These live in the list pdoslots

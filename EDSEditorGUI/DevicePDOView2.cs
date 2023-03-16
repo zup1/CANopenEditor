@@ -109,7 +109,7 @@ namespace ODEditor
 
             }
 
-            helper.buildmappingsfromlists();
+            helper.buildmappingsfromlists((ExporterFactory.Exporter)Properties.Settings.Default.ExporterType == ExporterFactory.Exporter.CANOPENNODE_V4);
             UpdatePDOinfo();
 
 
@@ -154,7 +154,7 @@ namespace ODEditor
                 slot.Mapping[location.ordinal] = newentry;
             }
 
-            helper.buildmappingsfromlists();
+            helper.buildmappingsfromlists((ExporterFactory.Exporter)Properties.Settings.Default.ExporterType == ExporterFactory.Exporter.CANOPENNODE_V4);
 
             doUpdateOD();
             UpdatePDOinfo();
@@ -688,7 +688,7 @@ namespace ODEditor
                 location.slot.insertMapping(location.ordinal, entry);
             }
 
-            helper.buildmappingsfromlists();
+            helper.buildmappingsfromlists((ExporterFactory.Exporter)Properties.Settings.Default.ExporterType == ExporterFactory.Exporter.CANOPENNODE_V4);
             UpdatePDOinfo(false); //dont cause the list to refresh
 
         }
@@ -723,7 +723,7 @@ namespace ODEditor
 
                 helper.pdoslots.Remove(selectedslot);
 
-                helper.buildmappingsfromlists();
+                helper.buildmappingsfromlists((ExporterFactory.Exporter)Properties.Settings.Default.ExporterType == ExporterFactory.Exporter.CANOPENNODE_V4);
                 doUpdateOD();
                 UpdatePDOinfo();
 
@@ -744,7 +744,7 @@ namespace ODEditor
             UInt16 slot = helper.findPDOslotgap(isTXPDO);
             helper.addPDOslot(slot);
 
-            helper.buildmappingsfromlists();
+            helper.buildmappingsfromlists((ExporterFactory.Exporter)Properties.Settings.Default.ExporterType == ExporterFactory.Exporter.CANOPENNODE_V4);
             doUpdateOD();
             UpdatePDOinfo();
         }
@@ -801,7 +801,7 @@ namespace ODEditor
 
             try
             {
-                helper.buildmappingsfromlists();
+                helper.buildmappingsfromlists((ExporterFactory.Exporter)Properties.Settings.Default.ExporterType == ExporterFactory.Exporter.CANOPENNODE_V4);
             }
             catch (Exception ex)
             {
@@ -812,6 +812,10 @@ namespace ODEditor
             UpdatePDOinfo();
         }
 
+        private void listView_TXPDO_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
     
