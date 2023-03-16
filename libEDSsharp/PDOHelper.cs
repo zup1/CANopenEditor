@@ -477,9 +477,9 @@ namespace libEDSsharp
             PDOSlot newslot = new PDOSlot();
             newslot.ConfigurationIndex = configindex;
 
-            newslot.COB = 0x180;        // Fixme need better defaults???
-            newslot.configloc = "RAM";
-            newslot.mappingloc = "RAM";
+            newslot.COB = 0xC0000000;
+            newslot.configloc = "PERSIST_COMM";
+            newslot.mappingloc = "PERSIST_COMM";
 
             pdoslots.Add(newslot);
 
@@ -517,6 +517,22 @@ namespace libEDSsharp
 
             //no gaps
             return 0x0000;
+        }
+
+        /// <summary>
+        /// Remove existing PDO slot as set by index
+        /// </summary>
+        /// <param name="configindex"></param>
+        public void removePDOslot(UInt16 configindex)
+        {
+            foreach (PDOSlot slot in pdoslots)
+            {
+                if (slot.ConfigurationIndex == configindex)
+                {
+                    pdoslots.Remove(slot);
+                    break;
+                }
+            }
         }
     }
 }

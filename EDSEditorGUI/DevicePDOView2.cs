@@ -721,7 +721,7 @@ namespace ODEditor
             if (MessageBox.Show(string.Format("Are you sure you wish to delete the entire PDO 0x{0:x4}/0x{1:x4}", selectedslot.ConfigurationIndex, selectedslot.MappingIndex), "Are you sure", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
 
-                helper.pdoslots.Remove(selectedslot);
+                helper.removePDOslot(selectedslot.ConfigurationIndex);
 
                 helper.buildmappingsfromlists((ExporterFactory.Exporter)Properties.Settings.Default.ExporterType == ExporterFactory.Exporter.CANOPENNODE_V4);
                 doUpdateOD();

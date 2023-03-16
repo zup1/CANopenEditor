@@ -329,6 +329,12 @@
             This finds a gap in the PDO slots
             </summary>
         </member>
+        <member name="M:libEDSsharp.PDOHelper.removePDOslot(System.UInt16)">
+            <summary>
+            Remove existing PDO slot as set by index
+            </summary>
+            <param name="configindex"></param>
+        </member>
         <member name="T:CanOpenXSD_1_0.ISO15745ProfileContainer">
             <remarks/>
         </member>
