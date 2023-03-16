@@ -72,7 +72,7 @@ namespace libEDSsharp
                 if (value == true)
                     COB = COB | 0x80000000;
                 else
-                    COB = COB & 0xEFFFFFFF;
+                    COB = COB & 0x7FFFFFFF;
             }
         }
  
@@ -127,7 +127,7 @@ namespace libEDSsharp
             }
             else
             {
-                target = String.Format("0x{0:x4}/{1:x2}/", od.Index, od.Subindex) + od.parameter_name;
+                target = String.Format("0x{0:X4}/{1:X2}/", od.Index, od.Subindex) + od.parameter_name;
             }
 
             return target;
@@ -211,7 +211,7 @@ namespace libEDSsharp
                     slot.DescriptionComm = od.Description;
 
 
-                    Console.WriteLine(String.Format("Found PDO Entry {0:x4} {1:x3}", idx, slot.COB));
+                    Console.WriteLine(String.Format("Found PDO Entry {0:X4} {1:X3}", idx, slot.COB));
 
                     //Look at mappings
 
@@ -219,7 +219,7 @@ namespace libEDSsharp
                     slot.DescriptionMap = mapping.Description;
                     if(mapping==null)
                     {
-                        Console.WriteLine(string.Format("No mapping for index 0x{0:x4} should be at 0x{1:x4}", idx, idx + 0x200));
+                        Console.WriteLine(string.Format("No mapping for index 0x{0:X4} should be at 0x{1:X4}", idx, idx + 0x200));
                         continue;
                     }
 
@@ -253,7 +253,7 @@ namespace libEDSsharp
 
                         totalsize += datasize;
 
-                        Console.WriteLine(string.Format("Mapping 0x{0:x4}/{1:x2} size {2}", pdoindex, pdosub, datasize));
+                        Console.WriteLine(string.Format("Mapping 0x{0:X4}/{1:X2} size {2}", pdoindex, pdosub, datasize));
 
                         //validate this against what is in the actual object mapped
                         try
@@ -431,9 +431,9 @@ namespace libEDSsharp
                 byte mappingcount = 1;
                 foreach (ODentry mapslot in slot.Mapping)
                 {
-                    sub = new ODentry(String.Format("Application object {0:x}", mappingcount), (ushort)slot.MappingIndex, mappingcount);
+                    sub = new ODentry(String.Format("Application object {0:X}", mappingcount), (ushort)slot.MappingIndex, mappingcount);
                     sub.datatype = DataType.UNSIGNED32;
-                    sub.defaultvalue = string.Format("0x{0:x4}{1:x2}{2:x2}", mapslot.Index, mapslot.Subindex, mapslot.Sizeofdatatype());
+                    sub.defaultvalue = string.Format("0x{0:X4}{1:X2}{2:X2}", mapslot.Index, mapslot.Subindex, mapslot.Sizeofdatatype());
                     sub.accesstype = EDSsharp.AccessType.rw;
                     mapping.addsubobject(mappingcount, sub);
 
@@ -443,7 +443,7 @@ namespace libEDSsharp
 
                 for (; mappingcount <= 8; mappingcount++)
                 {
-                    sub = new ODentry(String.Format("Application object {0:x}", mappingcount), (ushort)slot.MappingIndex, mappingcount);
+                    sub = new ODentry(String.Format("Application object {0:X}", mappingcount), (ushort)slot.MappingIndex, mappingcount);
                     sub.datatype = DataType.UNSIGNED32;
                     sub.defaultvalue = "0x00000000";
                     sub.accesstype = EDSsharp.AccessType.rw;

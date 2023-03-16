@@ -247,10 +247,10 @@ namespace ODEditor
 
                     if (isTXPDO)
                     {
-                        textBox_eventtimer.Enabled = true;
                         textBox_inhibit.Enabled = true;
                         textBox_syncstart.Enabled = true;
                     }
+                    textBox_eventtimer.Enabled = true;
                     textBox_type.Enabled = true;
                     textBox_cob.Enabled = true;
 
@@ -324,10 +324,10 @@ namespace ODEditor
         private void AddTXPDOoption(ODentry od)
         {
 
-            TXchoices.Add(String.Format("0x{0:x4}/{1:x2}/", od.Index, od.Subindex) + od.parameter_name);
+            TXchoices.Add(String.Format("0x{0:X4}/{1:X2}/", od.Index, od.Subindex) + od.parameter_name);
 
-            ListViewItem lvi = new ListViewItem(String.Format("0x{0:x4}", od.Index));
-            lvi.SubItems.Add(String.Format("0x{0:x2}", od.Subindex));
+            ListViewItem lvi = new ListViewItem(String.Format("0x{0:X4}", od.Index));
+            lvi.SubItems.Add(String.Format("0x{0:X2}", od.Subindex));
             lvi.SubItems.Add(od.parameter_name);
 
             DataType dt = od.datatype;
@@ -348,13 +348,13 @@ namespace ODEditor
             if (selectedslot == null)
                 return;
 
-            textBox_slot.Text = string.Format("0x{0:x4}", selectedslot.ConfigurationIndex);
-            textBox_mapping.Text = string.Format("0x{0:x4}", selectedslot.MappingIndex);
-            textBox_cob.Text = string.Format("0x{0:x4}", selectedslot.COB);
+            textBox_slot.Text = string.Format("0x{0:X4}", selectedslot.ConfigurationIndex);
+            textBox_mapping.Text = string.Format("0x{0:X4}", selectedslot.MappingIndex);
+            textBox_cob.Text = string.Format("0x{0:X4}", selectedslot.COB);
             textBox_type.Text = string.Format("{0}", selectedslot.transmissiontype);
             textBox_inhibit.Text = string.Format("{0}", selectedslot.inhibit);
-            textBox_eventtimer.Text = string.Format("0x{0:x4}", selectedslot.eventtimer);
-            textBox_syncstart.Text = string.Format("0x{0:x4}", selectedslot.syncstart);
+            textBox_eventtimer.Text = string.Format("{0}", selectedslot.eventtimer);
+            textBox_syncstart.Text = string.Format("{0}", selectedslot.syncstart);
 
 
         }
@@ -384,7 +384,7 @@ namespace ODEditor
 
             foreach (ODentry od in eds.dummy_ods.Values)
             {
-                TXchoices.Add(String.Format("0x{0:x4}/{1:x2}/", od.Index, od.Subindex) + od.parameter_name);
+                TXchoices.Add(String.Format("0x{0:X4}/{1:X2}/", od.Index, od.Subindex) + od.parameter_name);
             }
 
             foreach (KeyValuePair<UInt16, ODentry> kvp in eds.ods)
@@ -397,7 +397,7 @@ namespace ODEditor
 
                 if (od.objecttype == ObjectType.VAR && (od.PDOtype == PDOMappingType.optional || (isTXPDO && (od.PDOtype == PDOMappingType.TPDO)) || (!isTXPDO && (od.PDOtype == PDOMappingType.RPDO))))
                 {
-                    TXchoices.Add(String.Format("0x{0:x4}/{1:x2}/", od.Index, od.Subindex) + od.parameter_name);
+                    TXchoices.Add(String.Format("0x{0:X4}/{1:X2}/", od.Index, od.Subindex) + od.parameter_name);
 
                 }
 
@@ -411,7 +411,7 @@ namespace ODEditor
 
                     if (odsub.PDOtype == PDOMappingType.optional || (isTXPDO && (odsub.PDOtype == PDOMappingType.TPDO)) || (!isTXPDO && (odsub.PDOtype == PDOMappingType.RPDO)))
                     {
-                        TXchoices.Add(String.Format("0x{0:x4}/{1:x2}/", odsub.Index, odsub.Subindex) + odsub.parameter_name);
+                        TXchoices.Add(String.Format("0x{0:X4}/{1:X2}/", odsub.Index, odsub.Subindex) + odsub.parameter_name);
 
                     }
                 }
@@ -446,8 +446,8 @@ namespace ODEditor
                 grid1.Rows[row + 2].Height = 30;
 
                 grid1[row + 2, 0] = new SourceGrid.Cells.Cell(String.Format("{0}", row + 1), typeof(string));
-                grid1[row + 2, 1] = new SourceGrid.Cells.Cell(String.Format("{0:x}", slot.COB), typeof(string));
-                grid1[row + 2, 2] = new SourceGrid.Cells.Cell(String.Format("{0:x}", slot.ConfigurationIndex), typeof(string));
+                grid1[row + 2, 1] = new SourceGrid.Cells.Cell(String.Format("{0:X}", slot.COB), typeof(string));
+                grid1[row + 2, 2] = new SourceGrid.Cells.Cell(String.Format("{0:X}", slot.ConfigurationIndex), typeof(string));
 
                 grid1[grid1.RowsCount - 1, 0].View = viewCOB;
                 grid1[grid1.RowsCount - 1, 1].View = viewCOB;
@@ -718,7 +718,7 @@ namespace ODEditor
             if (selectedslot == null)
                 return;
 
-            if (MessageBox.Show(string.Format("Are you sure you wish to delete the entire PDO 0x{0:x4}/0x{1:x4}", selectedslot.ConfigurationIndex, selectedslot.MappingIndex), "Are you sure", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(string.Format("Are you sure you wish to delete the entire PDO 0x{0:X4}/0x{1:X4}", selectedslot.ConfigurationIndex, selectedslot.MappingIndex), "Are you sure", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
 
                 helper.removePDOslot(selectedslot.ConfigurationIndex);
@@ -756,7 +756,7 @@ namespace ODEditor
 
             selectedslot.invalid = checkBox_invalidpdo.Checked;
 
-            textBox_cob.Text = string.Format("0x{0:x4}", selectedslot.COB);
+            textBox_cob.Text = string.Format("0x{0:X4}", selectedslot.COB);
         }
 
         private void button_savepdochanges_Click(object sender, EventArgs e)
@@ -773,7 +773,7 @@ namespace ODEditor
             {
                 if (config < 0x1400 | config >= 0x1600)
                 {
-                    MessageBox.Show(string.Format("Invalid TXPDO Communication parameters index 0x{0:x4}", config));
+                    MessageBox.Show(string.Format("Invalid TXPDO Communication parameters index 0x{0:X4}", config));
                     return;
                 }
             }
@@ -781,7 +781,7 @@ namespace ODEditor
             {
                 if (config < 0x1800 | config >= 0x1A00)
                 {
-                    MessageBox.Show(string.Format("Invalid RXPDO Communication parameters index 0x{0:x4}", config));
+                    MessageBox.Show(string.Format("Invalid RXPDO Communication parameters index 0x{0:X4}", config));
                     return;
                 }
             }            
