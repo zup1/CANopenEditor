@@ -760,6 +760,7 @@ file.WriteLine(@"/**************************************************************
                     default:
                         {
                             file.WriteLine(string.Format("/*{0:X4}, Data Type: {1} */", od.Index, t.ToString()));
+                            file.WriteLine(string.Format("        #define {0,-51} 0x{1:X4}", string.Format("OD_{0}_idx", make_cname(od.parameter_name, od)), od.Index, t.ToString()));
                             file.WriteLine(string.Format("        #define {0,-51} {1}.{2}", string.Format("OD_{0}", make_cname(od.parameter_name,od)), loc, make_cname(od.parameter_name,od)));
 
                             DataType dt = od.datatype;
@@ -777,6 +778,7 @@ file.WriteLine(@"/**************************************************************
                             DataType dt = od.datatype;
 
                             file.WriteLine(string.Format("/*{0:X4}, Data Type: {1}, Array[{2}] */", od.Index, t.ToString(), od.Nosubindexes - 1));
+                            file.WriteLine(string.Format("        #define {0,-51} 0x{1:X4}", string.Format("OD_{0}_idx", make_cname(od.parameter_name, od)), od.Index, t.ToString()));
                             file.WriteLine(string.Format("        #define OD_{0,-48} {1}.{2}", make_cname(od.parameter_name,od), loc, make_cname(od.parameter_name,od)));
                             file.WriteLine(string.Format("        #define {0,-51} {1}", string.Format("ODL_{0}_arrayLength", make_cname(od.parameter_name,od)), od.Nosubindexes - 1));
 
@@ -825,6 +827,7 @@ file.WriteLine(@"/**************************************************************
                             if (!constructed_rec_types.Contains(rectype))
                             {
                                 file.WriteLine(string.Format("/*{0:X4}, Data Type: {1}_t */", od.Index, rectype));
+                                file.WriteLine(string.Format("        #define {0,-51} 0x{1:X4}", string.Format("OD_{0}_idx", make_cname(od.parameter_name, od)), od.Index, t.ToString()));
                                 file.WriteLine(string.Format("        #define {0,-51} {1}.{2}", string.Format("OD_{0}", rectype), loc, rectype));
                                 constructed_rec_types.Add(rectype);
                                 file.WriteLine("");
@@ -1142,6 +1145,7 @@ const CO_OD_entry_t CO_OD[CO_OD_NoOfElements] = {
             {
                 int nobase = 10;
                 bool nodeidreplace = false;
+                
 
                 if (defaultvalue == null || defaultvalue == "")
                 {
@@ -1166,6 +1170,7 @@ const CO_OD_entry_t CO_OD[CO_OD_NoOfElements] = {
                 {
                     defaultvalue = defaultvalue.Replace("$NODEID", "");
                     defaultvalue = defaultvalue.Replace("+", "");
+                    defaultvalue = defaultvalue.Trim();
                     nodeidreplace = true;
                 }
 
@@ -1190,7 +1195,7 @@ const CO_OD_entry_t CO_OD[CO_OD_NoOfElements] = {
                 if (nodeidreplace)
                 {
                     UInt32 data = Convert.ToUInt32(defaultvalue.Trim(), nobase);
-                    data += eds.NodeId;
+                    data += eds.NodeID;
                     defaultvalue = string.Format("0x{0:X}", data);
                     nobase = 16;
                 }

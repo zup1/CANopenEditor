@@ -658,7 +658,17 @@ namespace ODEditor
 
             network.Add(eds);
         }
-
+        private void TabControl1_Selected(Object sender, TabControlEventArgs e)
+        {
+            if(tabControl1.SelectedIndex == 0)
+            {
+                DeviceView dv = (DeviceView)tabControl1.SelectedTab.Controls[0];
+                dv.dispatch_updateOD();
+                dv.dispatch_updatePDOinfo();
+                dv.eds.UpdatePDOcount();
+                dv.dispatch_updatedevice();
+            }
+        }
         private void tabControl1_ControlsChanged(object sender, ControlEventArgs e)
         {
             enablesavemenus(tabControl1.TabCount > 0);  
