@@ -333,7 +333,7 @@ namespace libEDSsharp
                     sub.datatype = DataType.UNSIGNED32;
                     if (slot.nodeidpresent)
                         sub.defaultvalue = "$NODEID+"; // DSP306: "The $NODEID must appear at the beginning of the expression. Otherwise the line is interpreted as without a formula. 
-                    sub.defaultvalue += slot.COB.ToHexString();
+                    sub.defaultvalue += String.Format("0x{0:X}", slot.COB);
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x01, sub);
 
@@ -386,7 +386,7 @@ namespace libEDSsharp
                     sub.datatype = DataType.UNSIGNED32;
                     if (slot.nodeidpresent)
                         sub.defaultvalue = "$NODEID+"; // DSP306: "The $NODEID must appear at the beginning of the expression. Otherwise the line is interpreted as without a formula. 
-                    sub.defaultvalue += slot.COB.ToHexString();
+                    sub.defaultvalue += String.Format("0x{0:X}", slot.COB);
                     sub.accesstype = EDSsharp.AccessType.rw;
                     config.addsubobject(0x01, sub);
 
@@ -477,7 +477,45 @@ namespace libEDSsharp
             PDOSlot newslot = new PDOSlot();
             newslot.ConfigurationIndex = configindex;
 
-            newslot.COB = 0xC0000000;
+            switch (configindex)
+            {
+                case 0x1400:
+                    newslot.COB = 0x80000200;
+                    newslot.nodeidpresent = true;
+                    break;
+                case 0x1401:
+                    newslot.COB = 0x80000300;
+                    newslot.nodeidpresent = true;
+                    break;
+                case 0x1402:
+                    newslot.COB = 0x80000400;
+                    newslot.nodeidpresent = true;
+                    break;
+                case 0x1403:
+                    newslot.COB = 0x80000500;
+                    newslot.nodeidpresent = true;
+                    break;
+                case 0x1800:
+                    newslot.COB = 0xC0000180;
+                    newslot.nodeidpresent = true;
+                    break;
+                case 0x1801:
+                    newslot.COB = 0xC0000280;
+                    newslot.nodeidpresent = true;
+                    break;
+                case 0x1802:
+                    newslot.COB = 0xC0000380;
+                    newslot.nodeidpresent = true;
+                    break;
+                case 0x1803:
+                    newslot.COB = 0xC0000480;
+                    newslot.nodeidpresent = true;
+                    break;
+                default:
+                    newslot.COB = 0xC0000000;
+                    break;
+            }
+            
             newslot.configloc = "PERSIST_COMM";
             newslot.mappingloc = "PERSIST_COMM";
 
