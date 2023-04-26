@@ -459,23 +459,25 @@ namespace ODEditor
                 {
                     {
                         string target = slot.getTargetName(entry);
-                        grid1[row + 2, bitoff + 3] = new SourceGrid.Cells.Cell(target, comboStandard);
-                        grid1[row + 2, bitoff + 3].ColumnSpan = entry.Sizeofdatatype();
-                        grid1[row + 2, bitoff + 3].View = viewNormal;
+                        if (bitoff < 64) {
+                            grid1[row + 2, bitoff + 3] = new SourceGrid.Cells.Cell(target, comboStandard);
+                            grid1[row + 2, bitoff + 3].ColumnSpan = entry.Sizeofdatatype();
+                            grid1[row + 2, bitoff + 3].View = viewNormal;
 
-                        PDOlocator location = new PDOlocator();
-                        location.slot = slot;
-                        location.ordinal = ordinal;
-                        location.entry = entry;
+                            PDOlocator location = new PDOlocator();
+                            location.slot = slot;
+                            location.ordinal = ordinal;
+                            location.entry = entry;
 
-                        Console.WriteLine(string.Format("New location at Row {0} Col {1} Loc {2}", row, bitoff, location.ToString()));
-                        grid1[row + 2, bitoff + 3].Tag = location;
+                            Console.WriteLine(string.Format("New location at Row {0} Col {1} Loc {2}", row, bitoff, location.ToString()));
+                            grid1[row + 2, bitoff + 3].Tag = location;
 
-                        ValueChangedController vcc = new ValueChangedController();
-                        vcc.ValueChangedEvent += Vcc_ValueChangedEvent;
+                            ValueChangedController vcc = new ValueChangedController();
+                            vcc.ValueChangedEvent += Vcc_ValueChangedEvent;
 
 
-                        grid1[row + 2, bitoff + 3].AddController(vcc);
+                            grid1[row + 2, bitoff + 3].AddController(vcc);
+                        }
                         bitoff += entry.Sizeofdatatype();
                     }
 

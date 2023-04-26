@@ -271,16 +271,17 @@ namespace libEDSsharp
                             else
                                 maptarget = eds.ods[pdoindex].Getsubobject(pdosub);
 
-                            if (maptarget.prop.CO_disabled == false && datasize == (maptarget.Sizeofdatatype()))
+                            if (maptarget != null && maptarget.prop.CO_disabled == false && datasize == (maptarget.Sizeofdatatype()))
                             {
                                 //mappingfail = false;
                             }
                             else
                             {
-                                Console.WriteLine(String.Format("MAPPING FAILED {0} != {1}", datasize, maptarget.Sizeofdatatype()));
+                                Console.WriteLine(String.Format("MAPPING FAILED {0} != {1}", datasize, maptarget?.Sizeofdatatype()));
                             }
 
-                            slot.Mapping.Add(maptarget);
+                            if (maptarget != null)
+                                slot.Mapping.Add(maptarget);
                         }
                         catch (Exception) { }
                     }
