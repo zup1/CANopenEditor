@@ -150,6 +150,7 @@ namespace libEDSsharp
                 VerifyCountLabel(od, 0x1001, 0x1001, "EM");
                 VerifyCountLabel(od, 0x1005, 0x1005, "SYNC");
                 VerifyCountLabel(od, 0x1006, 0x1006, "SYNC_PROD");
+                VerifyCountLabel(od, 0x100C, 0x100D, "HB_LIFEGUARD");
                 VerifyCountLabel(od, 0x1010, 0x1010, "STORAGE");
                 VerifyCountLabel(od, 0x1012, 0x1012, "TIME");
                 VerifyCountLabel(od, 0x1014, 0x1014, "EM_PROD");
